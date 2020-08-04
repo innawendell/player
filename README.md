@@ -1,7 +1,5 @@
 # Player
 ### Feature Extraction from txt, xml (TEI), and Word files for dramatic plays.
-<img src="https://commons.wikimedia.org/wiki/File:Drama-icon.png#/media/File:Drama-icon.png" alt="masks"/>
-
 
 ### Project Description
 The package creates features creates features from play texts.
