@@ -1,12 +1,13 @@
 README.md
 setup.cfg
 setup.py
+player/__init__.py
 player.egg-info/PKG-INFO
 player.egg-info/SOURCES.txt
 player.egg-info/dependency_links.txt
 player.egg-info/requires.txt
 player.egg-info/top_level.txt
-scripts/french_tei_processor.py
-scripts/french_word_processor.py
-scripts/russian_tei_processor.py
-scripts/txt_processor.py
+player/scripts/french_tei_processor.py
+player/scripts/french_word_processor.py
+player/scripts/russian_tei_processor.py
+player/scripts/txt_processor.py
