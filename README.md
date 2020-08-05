@@ -1,5 +1,7 @@
 # Player
 ### Feature Extraction from txt, xml (TEI), and Word files for dramatic plays.
+<img src="https://commons.wikimedia.org/wiki/File:Drama-icon.png#/media/File:Drama-icon.png" alt="masks" height="800"/>
+
 
 ### Project Description
 The package creates features creates features from play texts.
@@ -19,7 +21,7 @@ How do I use this code as a library?
 
 or it can be installed directory from github,
 
-`pip install git+ssh://git@github.com:innawendell/European_Comedy/player.git`
+`pip install git+https://github.com/innawendell/player.git`
 
 ## txt_processor.py
 This script processes text files in the txt with a custom markup.
