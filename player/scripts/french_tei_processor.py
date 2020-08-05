@@ -1,7 +1,7 @@
 import os
 import sys
 import argparse
-from text_processing import french_tei_functions as ftf
+from player.text_processing import french_tei_functions as ftf
 
 def main(raw_args):
   parser = argparse.ArgumentParser(description='Input arguments for manually tagged txt files.')

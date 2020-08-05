@@ -1,7 +1,7 @@
 import os
 import sys
 import argparse
-from text_processing import french_word_functions as fwf
+from player.text_processing import french_word_functions as fwf
 
 def main(raw_args):
   parser = argparse.ArgumentParser(description='Input arguments for manually tagged txt files.')
