@@ -1,6 +1,6 @@
 # Player
 ### Feature Extraction from txt, xml (TEI), and Word files for dramatic plays.
-![drama-312318_1280](https://user-images.githubusercontent.com/35588235/89479487-cff7e100-d747-11ea-9918-09b71905e58f.png=250x250)
+![drama-312318_1280](https://user-images.githubusercontent.com/35588235/89479487-cff7e100-d747-11ea-9918-09b71905e58f.png width=100)
 
 
 ### Project Description
