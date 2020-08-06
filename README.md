@@ -1,6 +1,6 @@
 # Player
 ### Feature Extraction from txt, xml (TEI), and Word files for dramatic plays.
-<img src="https://commons.wikimedia.org/wiki/File:Drama-icon.png#/media/File:Drama-icon.png" alt="masks" height="800"/>
+![drama-312318_1280](https://user-images.githubusercontent.com/35588235/89479487-cff7e100-d747-11ea-9918-09b71905e58f.png)
 
 
 ### Project Description
