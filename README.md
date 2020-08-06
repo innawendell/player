@@ -16,9 +16,10 @@ Inna Wendell
 
 # Usage
 How do I use this code as a library? 
+Clone the repo and run:
 `python setup.py install`
 
-or it can be installed directory from github,
+or install via pip from the github directory:
 
 `pip install git+https://github.com/innawendell/player.git`
 
