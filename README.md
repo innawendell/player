@@ -32,16 +32,8 @@ Three arguments are required to run this script:
 1. `input_path` The path where the txt files are stored.
 2. `ouput_path` The path where the json files should be saved.
 3. `metadata_path` The path to the metadata tab-delimited tsv file.
-	Example columns and their values in the metadata tsv.
-
-	* `index`: 	R_1
-	* `title`:  "Samoliubivyi stikhotvorets"	
-	* `first_name`: "Nikolev"	
-	* `last_name`: "Nikolai"	
-	* `creation_date`: 1775	
-	* `translation`: 0	
-	* `num_acts`: 5	
-	* `free_iambs`: 0	
+Example of a metadata file: https://github.com/innawendell/European_Comedy/blob/master/Russian_Comedies/Russian_Comedies.tsv
+	
 
 ### Run this script:
 ```
