@@ -18,7 +18,7 @@ Inna Wendell
 How do I use this code as a library? 
 `python setup.py install`
 
-or it can be installed directory from github,
+or it can be installed directly from github,
 
 `pip install git+https://github.com/innawendell/player.git#egg=player`
 

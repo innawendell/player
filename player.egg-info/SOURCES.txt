@@ -1,6 +1,11 @@
 README.md
 setup.cfg
 setup.py
+player/__init__.py
+player/french_tei_functions.py
+player/french_word_functions.py
+player/russian_tei_functions.py
+player/text_processing_functions.py
 player.egg-info/PKG-INFO
 player.egg-info/SOURCES.txt
 player.egg-info/dependency_links.txt
@@ -10,8 +15,3 @@ scripts/french_tei_processor.py
 scripts/french_word_processor.py
 scripts/russian_tei_processor.py
 scripts/txt_processor.py
-text_processing/__init__.py
-text_processing/french_tei_functions.py
-text_processing/french_word_functions.py
-text_processing/russian_tei_functions.py
-text_processing/text_processing_functions.py

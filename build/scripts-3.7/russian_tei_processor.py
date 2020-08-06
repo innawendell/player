@@ -2,7 +2,7 @@
 import os
 import sys
 import argparse
-from text_processing import russian_tei_functions as rtf
+from player import russian_tei_functions as rtf
 
 def main(raw_args):
   parser = argparse.ArgumentParser(description='Input arguments for manually tagged txt files.')
