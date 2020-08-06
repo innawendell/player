@@ -41,7 +41,9 @@ Three arguments are required to run this script:
 
 ### Run this script:
 ```
-txt_processor.py -i "Russian_Comedies/Txt_files/" -o "Russian_Comedies/Play_Jsons/" -m "Russian_Comedies/Russian_Comedies.tsv"
+txt_processor.py -i "Russian_Comedies/Txt_files/" \
+-o "Russian_Comedies/Play_Jsons/" \
+-m "Russian_Comedies/Russian_Comedies.tsv"
 ```
 
 ## Scripts
