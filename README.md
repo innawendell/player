@@ -19,11 +19,11 @@ How do I use this code as a library?
 Clone the repo and run:
 `python setup.py install`
 
-or install via pip from the github directory:
+or install using pip from the github directory in the regular mode:
 
 `pip install git+https://github.com/innawendell/player.git`
 
-or using the "editable" mode:
+or in the "editable" mode:
 `pip install git+https://github.com/innawendell/player.git#egg=player`
 
 ## txt_processor.py
