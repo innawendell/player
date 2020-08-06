@@ -8,7 +8,6 @@ player.egg-info/requires.txt
 player.egg-info/top_level.txt
 scripts/french_tei_processor.py
 scripts/french_word_processor.py
-scripts/run_txt_processor.sh
 scripts/russian_tei_processor.py
 scripts/txt_processor.py
 text_processing/__init__.py
