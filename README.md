@@ -20,6 +20,9 @@ How do I use this code as a library?
 
 or it can be installed directory from github,
 
+`pip install git+https://github.com/innawendell/player.git`
+
+or using the "editable" mode:
 `pip install git+https://github.com/innawendell/player.git#egg=player`
 
 ## txt_processor.py
