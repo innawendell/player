@@ -16,10 +16,14 @@ Inna Wendell
 
 # Usage
 How do I use this code as a library? 
+Clone the repo and run:
 `python setup.py install`
 
-or it can be installed directly from github,
+or install using pip from the github directory in the regular mode:
 
+`pip install git+https://github.com/innawendell/player.git`
+
+or in the "editable" mode:
 `pip install git+https://github.com/innawendell/player.git#egg=player`
 
 ## txt_processor.py
