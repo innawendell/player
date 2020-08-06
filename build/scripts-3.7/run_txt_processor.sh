@@ -1,1 +1,0 @@
-python3 txt_processor.py
