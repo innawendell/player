@@ -6,7 +6,7 @@ import json
 from os import listdir
 from collections import Counter
 import copy
-from text_processing import text_processing_functions as tpf
+from player import text_processing_functions as tpf
 
 
 def process_all_plays(input_directory, output_path, metadata_path):

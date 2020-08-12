@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup as bs
 import json
 import re
 import copy
-from text_processing import text_processing_functions as tpf
+from player import text_processing_functions as tpf
 
 
 def process_all_plays(input_directory, output_path, custom_flag=False, metadata_path=None):

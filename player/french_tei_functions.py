@@ -2,8 +2,8 @@ import pandas as pd
 from os import listdir
 from bs4 import BeautifulSoup as bs
 import json
-from text_processing import russian_tei_functions as rtf
-from text_processing import text_processing_functions as tpf
+from player import russian_tei_functions as rtf
+from player import text_processing_functions as tpf
 
 
 def process_all_plays(input_directory, output_path, custom_flag=False, metadata_path=None):
