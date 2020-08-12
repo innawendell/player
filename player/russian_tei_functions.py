@@ -524,9 +524,8 @@ def process_stage_directions_features(play_soup, play_data, metadata_dict):
     """
     Sperantov's stage-directions features
     """
-    if 'free_iambs' in play_data:
-        if play_data['free_iambs'] == 1:
-            number_verse_lines = metadata_dict['rescaled_num_verse_lines']
+    if play_data['free_iambs'] == 1:
+        number_verse_lines = metadata_dict['rescaled_num_verse_lines']
     else:
         number_verse_lines = metadata_dict['num_verse_lines']
     metadata_dict['num_stage_directions'] = len(play_soup.find_all('stage'))
