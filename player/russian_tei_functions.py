@@ -1,15 +1,10 @@
-import os
 import pandas as pd
 from os import listdir
-from os.path import isfile, join
-import numpy as np
 import string
 from bs4 import BeautifulSoup as bs
-import string
 import json
 import re
 import copy
-from collections import Counter
 from text_processing import text_processing_functions as tpf
 
 
@@ -24,14 +19,14 @@ def process_all_plays(input_directory, output_path, custom_flag=False, metadata_
     Returns:
         no returns, the files will be saved in output_path directory.
     """
-    all_files = [f for f in listdir(input_directory) if f.count('.xml')>0]
+    all_files = [f for f in listdir(input_directory) if f.count('.xml') > 0]
     if custom_flag:
         metadata_df = pd.read_csv(metadata_path, sep='\t')
     else:
         metadata_df = pd.DataFrame()
     for file in all_files:
-        play_data_dict = process_play(input_directory+file, metadata_df, custom_flag)
-        json_name = output_path +str(file.replace('.xml', '.json'))
+        play_data_dict = process_play(input_directory + file, metadata_df, custom_flag)
+        json_name = output_path + str(file.replace('.xml', '.json'))
         with open(json_name, 'w') as fp:
             json.dump(play_data_dict, fp, ensure_ascii=False, indent=2)
 
@@ -54,11 +49,9 @@ def process_play(file_name, metadata_df, custom_flag):
             play_index = file_name.split('/')[-1].replace('.xml', '')
         else:
             play_index = file_name.replace('.xml', '')
-        play_meta = metadata_df[metadata_df['index']==play_index][['title', 'last_name',
-                                                               'first_name', 'creation_date',
-                                                               'free_iambs']].values
-        comedy = open(file_name, 'r') .read()
-        number_acts = int(metadata_df[metadata_df['index']==play_index]['num_acts'].values[0])
+        play_meta = metadata_df[metadata_df['index'] == play_index][['title', 'last_name',
+                                                                     'first_name', 'creation_date',
+                                                                     'free_iambs']].values
     else:
         play_meta = []
     play_data = add_play_info(play_meta, soup, custom_flag)
@@ -77,7 +70,6 @@ def process_summary(soup, character_cast_dictionary):
         act_info['act'+'_'+str(act_num)] = parse_scenes(scenes,
                                                         character_cast_dictionary)
     return act_info
-
 
 
 def create_character_cast(play_soup):
@@ -117,9 +109,9 @@ def parse_scenes(scenes, character_cast_dictionary):
     extra_scene_number = 1
     for scene in scenes:
         scene_status, sc_num, extra_scene_number = handle_scene_name_and_count(scene, sc_num, extra_scene_number)
-        if sc_num != 1 :
+        if sc_num != 1:
             previous_cast = [name for name in complete_scene_info[scene_names[-1]].keys()
-                            if name not in other_meta_fields]
+                             if name not in other_meta_fields]
         else:
             previous_cast = []
         scene_summary, scene_cast = count_utterances(scene, character_cast_dictionary, previous_cast, scene_status)
@@ -128,8 +120,8 @@ def parse_scenes(scenes, character_cast_dictionary):
         if float(sc_num) > 1:
             current_scene = [key for key in scene_summary.keys() if key not in other_meta_fields]
             scene_status = tpf.check_if_no_change(current_scene, previous_cast, scene_status)
-        complete_scene_info[str(sc_num) + '_' + str(scene_status)] =  scene_summary
-        #check to make sure all character names are in scene cast as they appear in the play cast
+        complete_scene_info[str(sc_num) + '_' + str(scene_status)] = scene_summary
+        # check to make sure all character names are in scene cast as they appear in the play cast
         scene_names.append(str(sc_num) + '_' + str(scene_status))
 
     return complete_scene_info
@@ -186,11 +178,12 @@ def tackle_name(character_cast_dict, scene_cast):
         if scene_cast.count(name.lower()) >= 2:
             updated_characters.append(name)
         elif scene_cast.count(name.lower()) == 1:
+            index = scene_cast.find(name.lower())
             if name[-2:] != 'ин' and name[-2:] != 'ов' and name[-2:] != 'ев' and name[-2:] != 'аф':
                 updated_characters.append(name)
-            elif (scene_cast[scene_cast.find(name.lower()):scene_cast.find(name.lower())+len(name.lower())+1][-1] != 'а'and
-                 scene_cast[scene_cast.find(name.lower()):scene_cast.find(name.lower())+len(name.lower())+3][-1] != 'я'):
-                     updated_characters.append(name)
+            elif (scene_cast[index:index+len(name.lower())+1][-1] != 'а' and
+                  scene_cast[index:index + len(name.lower())+3][-1] != 'я'):
+                updated_characters.append(name)
 
     return updated_characters
 
@@ -208,7 +201,7 @@ def find_speakers(scene):
     speakers = [utterance['who'] for utterance in scene.find_all('sp')]
     for speaker in speakers:
         speaker_count = str(speaker).count('#')
-        #if multiple speakers
+        # if multiple speakers
         if speaker_count > 0:
             multiple_speakers = str(speaker).split(' #')
             [speakers_lst.append(sp.strip()) for sp in multiple_speakers]
@@ -251,13 +244,13 @@ def check_cast_vs_speakers(scene_cast_lst, speakers, scene):
     """
     speaker_set = set(speakers)
     scene_cast_set = set(scene_cast_lst)
-    if len(speaker_set.difference(scene_cast_set)) > 0 and len(scene_cast_lst) >0:
+    if len(speaker_set.difference(scene_cast_set)) > 0 and len(scene_cast_lst) > 0:
         print('\tERROR.', 'Speak but do not appear in scene cast:',
               speaker_set.difference(scene_cast_set),
               'Listed speakers in cast:',
-               scene_cast_set,
+              scene_cast_set,
               'Beginning of the scene:',
-               str(scene)[:150])
+              str(scene)[:150])
 
 
 def identify_scene_cast(scene, scene_status):
@@ -293,11 +286,11 @@ def handle_preceding_scene_characters(scene_cast, previous_cast, characters_curr
         updated_characters - dramatic characters from a scene, including the ones from a previous scene,
                             if applicable.
     """
-    if (scene_cast.count('те же') > 0 or scene_cast.count('прежние') > 0 or scene_cast.count('те ж') > 0 or
-        scene_cast.count('тот же') > 0 or scene_cast.count('та же') > 0):
-        characters = previous_cast
-    else:
-        characters = []
+    same_characters = ['те же', 'прежние', 'те ж', 'тот же', 'та же']
+    characters = []
+    for expression in same_characters:
+        if scene_cast.count(expression) > 0:
+            characters = previous_cast
     updated_characters = characters_current_scene + characters
 
     return updated_characters
@@ -351,7 +344,7 @@ def count_characters(scene_summary_dict):
     summary = [item for item in scene_summary_dict.items() if item[0] != 'num_utterances' and item[0] != 'num_speakers']
     num_speakers = len([item[0] for item in summary if item[1] != 0])
     num_non_speakers = len([item[0] for item in summary if item[1] == 0])
-    perc_non_speakers =  round((num_non_speakers / len(summary)) * 100, 3)
+    perc_non_speakers = round((num_non_speakers / len(summary)) * 100, 3)
 
     return num_speakers, perc_non_speakers
 
@@ -438,7 +431,7 @@ def verse_split_between_scenes(soup):
     connected by either rhymes or by
     """
     scenes = soup.find_all('div', {'type': ['scene', 'extra_scene', 'complex_scene']})
-    counts = {'scenes_with_split_verse':0, 'scenes_split_rhymes':0, 'both':0, 'open': 0}
+    counts = {'scenes_with_split_verse': 0, 'scenes_split_rhymes': 0, 'both': 0, 'open': 0}
     for scene in scenes:
         last_ten_lines = str(scene.find_all('l')[-10:])
         last_line = str(scene.find_all('l')[-1])
@@ -509,8 +502,8 @@ def estimate_verse_line_splitting_stage_directions(play_soup):
         # find the index of the end of the verse line
         end = [i for i in re.finditer(r'</l>', line)][-1].span()[0]
         verse_line = line[:end]
-        if verse_line.count('</stage>')> 0:
-            total_num+=verse_line.count('</stage>')
+        if verse_line.count('</stage>') > 0:
+            total_num += verse_line.count('</stage>')
 
     return total_num
 
@@ -526,6 +519,7 @@ def count_number_word_tokens(play_soup):
 
     return total_number_tokens
 
+
 def process_stage_directions_features(play_soup, play_data, metadata_dict):
     """
     Sperantov's stage-directions features
@@ -537,16 +531,16 @@ def process_stage_directions_features(play_soup, play_data, metadata_dict):
         number_verse_lines = metadata_dict['num_verse_lines']
     metadata_dict['num_stage_directions'] = len(play_soup.find_all('stage'))
     metadata_dict['stage_directions_frequency'] = round((metadata_dict['num_stage_directions'] /
-                                                  number_verse_lines) * 100, 3)
+                                                         number_verse_lines) * 100, 3)
     metadata_dict['num_word_tokens_in_stage_directions'] = count_number_word_tokens(play_soup)
-    metadata_dict['average_length_of_stage_direction'] = round(metadata_dict['num_word_tokens_in_stage_directions']/
-                                                        metadata_dict['num_stage_directions'], 3)
+    metadata_dict['average_length_of_stage_direction'] = round(metadata_dict['num_word_tokens_in_stage_directions'] /
+                                                               metadata_dict['num_stage_directions'], 3)
     metadata_dict['num_verse_splitting_stage_directions'] = estimate_verse_line_splitting_stage_directions(play_soup)
-
     metadata_dict['degree_of_verse_prose_interaction'] = round((metadata_dict['num_verse_splitting_stage_directions'] /
-                                                             number_verse_lines) * 100, 3)
+                                                               number_verse_lines) * 100, 3)
 
     return metadata_dict
+
 
 def percentage_of_scenes_discont_change(play_soup, play_data, metadata_dict):
     number_scenes = metadata_dict['num_scenes_iarkho']
@@ -555,12 +549,12 @@ def percentage_of_scenes_discont_change(play_soup, play_data, metadata_dict):
     for act in play_data['play_summary'].keys():
         for entry in play_data['play_summary'][act].values():
             new_cast = [item for item in entry.keys() if
-                               item not in ['num_speakers', 'perc_non_speakers', 'num_utterances']]
+                        item not in ['num_speakers', 'perc_non_speakers', 'num_utterances']]
             if len(characters) > 0:
                 if len(set(new_cast).intersection(set(characters[-1]))) == 0:
                     num_scenes_with_disc_character_change += 1
             characters.append(new_cast)
-    perc_disc = round((num_scenes_with_disc_character_change /number_scenes) * 100, 3)
+    perc_disc = round((num_scenes_with_disc_character_change / number_scenes) * 100, 3)
     metadata_dict['number_scenes_with_discontinuous_change_characters'] = num_scenes_with_disc_character_change
     metadata_dict['percentage_scenes_with_discontinuous_change_characters'] = perc_disc
 
@@ -578,14 +572,12 @@ def add_play_info(metadata, soup, custom_flag=False):
         play_data['creation_date'] = metadata[0][3]
         play_data['free_iambs'] = metadata[0][4]
     else:
-        play_data['title'] = soup.find_all('title', {'type':'main'})[0].get_text()
+        play_data['title'] = soup.find_all('title', {'type': 'main'})[0].get_text()
         play_data['author'] = soup.find_all('author')[0].get_text()
         try:
-            play_data['creation_date'] = int(soup.find_all('date',
-                                         {'type':'written'})[0]['when'])
+            play_data['creation_date'] = int(soup.find_all('date', {'type': 'written'})[0]['when'])
         except KeyError:
-            play_data['premier_date'] = int(soup.find_all('date',
-                                         {'type':'premiere'})[0]['when'])
+            play_data['premier_date'] = int(soup.find_all('date', {'type': 'premiere'})[0]['when'])
 
     return play_data
 
@@ -596,13 +588,10 @@ def additional_metadata(play_soup, play_data):
     """
     metadata_dict = {}
     for process in [process_speakers_features, process_features_verse,
-                   process_stage_directions_features, percentage_of_scenes_discont_change]:
+                    process_stage_directions_features, percentage_of_scenes_discont_change]:
         metadata_dict = process(play_soup, play_data, metadata_dict)
 
     return metadata_dict
-
-
-    return speech_distribution, speech_types, av_perc_non_speakers
 
 
 def handle_scene_name_and_count(scene, sc_num, extra_scene_number):
@@ -621,10 +610,10 @@ def handle_scene_name_and_count(scene, sc_num, extra_scene_number):
     sc_num = int(float(sc_num))
     scene_status = get_scene_status(scene)
     if scene_status == 'extra':
-        sc_num = str(sc_num)+ '.'+str(extra_scene_number)
-        extra_scene_number+=1
+        sc_num = str(sc_num) + '.' + str(extra_scene_number)
+        extra_scene_number += 1
     else:
-        sc_num +=1
+        sc_num += 1
         extra_scene_number = 1
 
     return scene_status, sc_num, extra_scene_number
