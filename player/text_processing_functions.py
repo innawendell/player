@@ -6,8 +6,7 @@ import string
 from collections import Counter
 import json
 import copy
-regex_pattern = r'[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+\w[А-Я+Ѣ+І]|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+ [А-Я+Ѣ+І] |\
-                  [А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+ [А-Я+Ѣ+І]'
+regex_pattern = r'[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+\w[А-Я+Ѣ+І]|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+ [А-Я+Ѣ+І] |[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+ [А-Я+Ѣ+І]'
 
 
 def process_all_plays(input_directory, output_path, metadata_path, regex_pattern):
@@ -71,9 +70,7 @@ def identify_character_names(line):
         characters - a list of character names or 0 if not present in that line
     """
 
-    pattern = r'[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|\
-                [А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+ [А-Я+Ѣ+І] |[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|\
-                [А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+'
+    pattern = r'[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+ [А-Я+Ѣ+І] |[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+|[А-Я+Ѣ+І]+.\w[А-Я+Ѣ+І]+'
     characters = [name.group() for name in re.finditer(pattern, line)]
     if len(characters) > 0:
         return characters
