@@ -26,7 +26,9 @@ or install using pip from the github directory:
 
 ## txt_processor.py
 This script processes Russian (old or new orthography) txt files with a custom markup.
+
 Examples of text files: https://github.com/innawendell/European_Comedy/tree/master/Russian_Comedies/Txt_files
+
 Three arguments are required to run this script:
 1. `input_path` The path where the txt files are stored.
 2. `ouput_path` The path where the json files should be saved.
@@ -55,7 +57,7 @@ Two agruments are required to run this script:
 Additionally, a user can specify two optional arguments:
 1. `custom_flag` Boolean, where `True` indicates that a user will be suppplying a custom metadata file. 
 	Default value is `False`, in which case the script uses metadata from the TEI file.
-	
+
 	Example of such metadatafile: https://github.com/innawendell/European_Comedy/blob/master/Russian_Comedies/Russian_Comedies.tsv
 2. `metadata_path` The path to the metadata tab-delimited tsv file.
 
@@ -76,7 +78,7 @@ russian_tei_processor.py -i "Russian_Comedies/TEI_files/" \
 ```
 
 ## french_word_processor.py
-This script processes summaries of the French plays manually entered by staff members in Word Documents.
+This script processes summaries of the French plays manually entered in Word Documents.
 
 Examples of the Word Documents: https://github.com/innawendell/European_Comedy/tree/master/French_Comedies/Word_Docs.
 
