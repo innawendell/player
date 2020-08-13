@@ -408,7 +408,7 @@ def add_play_info(soup, metadata, custom_flag=False):
     else:
         play_data['title'] = soup.find('titlepart').get_text()
         play_data['author'] = soup.find('docauthor')['id']
-        play_data['creation_date'] = int(soup.find('docdate').get_text().replace('.', ''))
+        play_data['creation_date'] = int(soup.find('docdate')['value'])
 
     return play_data
 

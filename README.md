@@ -42,25 +42,28 @@ txt_processor.py -i "Russian_Comedies/Txt_files/" \
 -o "Russian_Comedies/Play_Jsons/" \
 -m "Russian_Comedies/Russian_Comedies.tsv"
 ```
+
 ## russian_tei_processor.py
 This script processes xml (TEI) files in Russian obtained from https://dracor.org/. 
-The markup was adjusted to match research goals.
+The markup was adjusted to meet our research goals.
 Examples of the Russian TEI files: https://github.com/innawendell/European_Comedy/tree/master/Russian_Comedies/TEI_files
 Two agruments are required to run this script:
-1. `input_path` The path where the txt files are stored.
+1. `input_path` The path where the TEI files are stored.
 2. `ouput_path` The path where the json files should be saved.
 
 Additionally, you can specify two optional arguments:
 1. `custom_flag` boolean, True indicates that you will be using your custom metadata file. 
 Example of such metadatafile: https://github.com/innawendell/European_Comedy/blob/master/Russian_Comedies/Russian_Comedies.tsv
 Default value is False, in which case the script uses metadata from the TEI file.
-2. 3. `metadata_path` The path to the metadata tab-delimited tsv file.
+2. `metadata_path` The path to the metadata tab-delimited tsv file.
+
+Note: if you have plays written in free iambs, you will need to provide a metadata file, since this information
+is not recorded in TEI.
 
 ### Run this script with default arguments:
 ```
 russian_tei_processor.py -i "Russian_Comedies/TEI_files/" \
--o "Russian_Comedies/Play_Jsons/" \
--m "Russian_Comedies/Russian_Comedies.tsv"
+-o "Russian_Comedies/Play_Jsons/" 
 ```
 ### Run this script with optional arguments:
 ```
@@ -68,6 +71,48 @@ russian_tei_processor.py -i "Russian_Comedies/TEI_files/" \
 -o "Russian_Comedies/Play_Jsons/" \
 -c True \
 -m "Russian_Comedies/Russian_Comedies.tsv"
+```
+
+## french_word_processor.py
+This script processes summaries of the French plays manually entered by staff members in Word Documents.
+Examples of the Word Documents: https://github.com/innawendell/European_Comedy/tree/master/French_Comedies/Word_Docs.
+Two agruments are required to run this script:
+1. `input_path` The path where the Word Documents are stored.
+2. `ouput_path` The path where the json files should be saved.
+3. `metadata_path` The path to the metadata tab-delimited tsv file.
+Example of a metadata file: https://github.com/innawendell/European_Comedy/blob/master/French_Comedies/French_Comedies.tsv.
+
+### Run this script:
+```
+french_word_processor.py -i "French_Comedies/Word_Docs/" \
+-o "French_Comedies/Play_Jsons/" \
+-m "French_Comedies/French_Comedies.tsv"
+```
+## french_tei_processor.py
+This script processes xml (TEI) files in French obtained from http://www.theatre-classique.fr/. 
+The markup was adjusted to meet our research goals. 
+Examples of the Russian TEI files: https://github.com/innawendell/European_Comedy/tree/master/French_Comedies/TEI_files
+Two agruments are required to run this script:
+1. `input_path` The path where the TEI files are stored.
+2. `ouput_path` The path where the json files should be saved.
+
+Additionally, you can specify two optional arguments:
+1. `custom_flag` boolean, True indicates that you will be using your custom metadata file. 
+Example of such metadatafile: https://github.com/innawendell/European_Comedy/blob/master/French_Comedies/French_Comedies.tsv.
+Default value is False, in which case the script uses metadata from the TEI file.
+2. `metadata_path` The path to the metadata tab-delimited tsv file.
+
+### Run this script with default arguments:
+```
+french_tei_processor.py -i "French_Comedies/TEI_files/" \
+-o "French_Comedies/Play_Jsons/" \
+```
+### Run this script with optional arguments:
+```
+french_tei_processor.py -i "French_Comedies/TEI_files/" \
+-o "French_Comedies/Play_Jsons/" \
+-c True \
+-m "French_Comedies/French_Comedies.tsv"
 ```
 
 ## Scripts
