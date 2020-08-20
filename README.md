@@ -77,24 +77,6 @@ russian_tei_processor.py -i "Russian_Comedies/TEI_files/" \
 -m "Russian_Comedies/Russian_Comedies.tsv"
 ```
 
-## french_word_processor.py
-This script processes summaries of the French plays manually entered in Word Documents.
-
-Examples of the Word Documents: https://github.com/innawendell/European_Comedy/tree/master/French_Comedies/Word_Docs.
-
-Three agruments are required to run this script:
-1. `input_path` The path where the Word Documents are stored.
-2. `ouput_path` The path where the json files should be saved.
-3. `metadata_path` The path to the metadata tab-delimited tsv file.
-
-Example of a metadata file: https://github.com/innawendell/European_Comedy/blob/master/French_Comedies/French_Comedies.tsv.
-
-### Run this script:
-```
-french_word_processor.py -i "French_Comedies/Word_Docs/" \
--o "French_Comedies/Play_Jsons/" \
--m "French_Comedies/French_Comedies.tsv"
-```
 ## french_tei_processor.py
 This script processes xml (TEI) files in French obtained from http://www.theatre-classique.fr/. 
 The markup was adjusted to meet our research goals. 
@@ -122,6 +104,25 @@ french_tei_processor.py -i "French_Comedies/TEI_files/" \
 french_tei_processor.py -i "French_Comedies/TEI_files/" \
 -o "French_Comedies/Play_Jsons/" \
 -c True \
+-m "French_Comedies/French_Comedies.tsv"
+```
+
+## french_word_processor.py
+This script processes summaries of the French plays manually entered in Word Documents.
+
+Examples of the Word Documents: https://github.com/innawendell/European_Comedy/tree/master/French_Comedies/Word_Docs.
+
+Three agruments are required to run this script:
+1. `input_path` The path where the Word Documents are stored.
+2. `ouput_path` The path where the json files should be saved.
+3. `metadata_path` The path to the metadata tab-delimited tsv file.
+
+Example of a metadata file: https://github.com/innawendell/European_Comedy/blob/master/French_Comedies/French_Comedies.tsv.
+
+### Run this script:
+```
+french_word_processor.py -i "French_Comedies/Word_Docs/" \
+-o "French_Comedies/Play_Jsons/" \
 -m "French_Comedies/French_Comedies.tsv"
 ```
 
