@@ -81,7 +81,11 @@ def create_character_cast(play_soup):
     for character_tag in dramatic_characters:
         role = character_tag.find_all('role')
         tag = str(role[0])
-        xml_id = tag[tag.find('id='):tag.find(' sex')].replace('\"', '').split('=')[-1]
+        if tag.count('sex') > 0:
+            second_break = ' sex'
+        else:
+            second_break = ' rend'
+        xml_id = tag[tag.find('id='):tag.find(second_break)].replace('\"', '').split('=')[-1]
         # in case there is a collective number
         collective_number = character_tag.find_all('collective_number')
         if len(collective_number) != 0:
