@@ -108,6 +108,40 @@ def character_parsing(names, characters):
     return scene_characters
 
 
+def parse_scenes(scenes,  characters):
+    """
+    The function proceses the scenes and creates a scene summary, i.e., a dictionary where keys are scen numbers with
+    statuses, for example "1_regular" and keys are dramatic characters and their speaking statuses
+    (speaking or non_speaking).
+    Scene statuses incluse: regular - if a scene is the same as is given in the publication.
+                            extra - if a scene was added by us in the markup indicating an entrace or exit of a
+                            dramatic character.
+                            no_change - if a scene has the same dramatic characters as the scene before it.
+    Returns:
+        scene_summary - a dictionary where keys are scenes and dramatic characters are values.
+    """
+    scene_summary = {}
+    noise = ['', ' ', '\xa0', '-', '–', '/']
+    extra_scene_number = 1
+    regular_num = 1
+    for scene in scenes:
+        names = [name.strip() for name in scene[1:].split('\n') if name not in noise]
+        if scene[0].isdigit() and scene[1:5].count('*') == 0:
+            scene_name = str(regular_num) + '_regular'
+            regular_num += 1
+            extra_scene_number = 1
+        elif scene[0].isdigit() and scene[1:5].count('*') > 0:
+            scene_name = str(regular_num) + '_no_change'
+            regular_num += 1
+            extra_scene_number = 1
+        else:
+            scene_name = str(regular_num - 1) + '.' + str(extra_scene_number) + '_extra'
+            extra_scene_number += 1
+        scene_summary[scene_name] = character_parsing(names,  characters)
+
+    return scene_summary
+
+
 def process_play_summary(play_data, play_text):
     play_data['characters'] = parse_characters(play_text)
     play_summary = {}
@@ -115,7 +149,7 @@ def process_play_summary(play_data, play_text):
     acts = [act for act in play_text[play_text.find('ACT 1'):].split('ACT') if act not in noise]
     for act_num, act in enumerate(acts, 1):
         scenes = [scene.strip() for scene in act.split('SCENE')][1:]
-        play_summary['act_' + str(act_num)] = fwf.parse_scenes(scenes,  play_data['characters'])
+        play_summary['act_' + str(act_num)] = parse_scenes(scenes,  play_data['characters'])
     play_data['play_summary'] = play_summary
 
     return play_data
