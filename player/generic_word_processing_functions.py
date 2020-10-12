@@ -1,4 +1,4 @@
-from player import french_word_processing_functions as fwf 
+from player import french_word_functions as fwf 
 import numpy as np
 import pandas as pd
 import docx2txt
