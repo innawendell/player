@@ -1,12 +1,10 @@
-from player import french_word_functions as fwf 
-import numpy as np
+from player import french_word_functions as fwf
 import pandas as pd
 import docx2txt
 import re
 import json
 from os import listdir
-from collections import Counter
-import copy
+
 
 def process_all_plays(input_directory, output_path, metadata_path):
     """
@@ -83,7 +81,8 @@ def character_parsing(names, characters):
     """
     The function processes a scene and counts the number of speaking and non-speaking characters.
     Params:
-        names - lines of strings with dramatic character names accompanied by "NON_SPEAKING" in case they are not speaking.
+        names - lines of strings with dramatic character names accompanied by "NON_SPEAKING"
+        in case they are not speaking.
         characters - a dictionary with the info about evey dramaic character of the play.
     Returns:
         scene_characters - the dictionary with the number of speaking and non-speaking characters in the scene.
