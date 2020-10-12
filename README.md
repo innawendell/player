@@ -126,7 +126,7 @@ french_word_processor.py -i "French_Comedies/Word_Docs/" \
 -m "French_Comedies/French_Comedies.tsv"
 ```
 
-## french_word_processor.py
+## generic_word_processor.py
 This script processes summaries of the plays in any language manually entered in Word Documents.
 
 Examples of the Word Documents: https://github.com/innawendell/European_Comedy/tree/master/Contrastive_Material/Word_Docs.
@@ -140,9 +140,10 @@ Metadata file has to follow this format: https://github.com/innawendell/European
 
 ### Run this script:
 ```
-french_word_processor.py -i "French_Comedies/Word_Docs/" \
--o "French_Comedies/Play_Jsons/" \
--m "French_Comedies/French_Comedies.tsv"
+generic_word_processor.py -i '../European_Comedy/Contrastive_Material/Word_Docs/' \
+-o '../European_Comedy/Contrastive_Material/Play_Jsons/' \
+-m '../European_Comedy/Contrastive_Material/Contrastive_material.tsv'
+```
 
 ## Scripts
 All scripts in directory `scripts` are automatically installed into the path.
@@ -156,3 +157,4 @@ conda create --name player python=3.7 --yes
 conda activate player
 python setup.py develop
 conda install --name player --file requirements.txt --yes
+```
