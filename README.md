@@ -32,7 +32,7 @@ Examples of text files: https://github.com/innawendell/European_Comedy/tree/mast
 Three arguments are required to run this script:
 1. `input_path` The path where the txt files are stored.
 2. `ouput_path` The path where the json files should be saved.
-3. `metadata_path` The path to the metadata tab-delimited tsv file.
+3. `metadata_path` The path to the metadata tab-delimited file.
 
 Example of a metadata file: https://github.com/innawendell/European_Comedy/blob/master/Russian_Comedies/Russian_Comedies.tsv
 	
@@ -92,7 +92,7 @@ Additionally, a user can specify two optional arguments:
 	The default value is `False`, in which case the script uses metadata from the TEI file.
 
 	Example of such metadatafile: https://github.com/innawendell/European_Comedy/blob/master/French_Comedies/French_Comedies.tsv.
-2. `metadata_path` The path to the metadata tab-delimited tsv file.
+2. `metadata_path` The path to the metadata tab-delimited file.
 
 ### Run this script with default arguments:
 ```
@@ -115,7 +115,7 @@ Examples of the Word Documents: https://github.com/innawendell/European_Comedy/t
 Three agruments are required to run this script:
 1. `input_path` The path where the Word Documents are stored.
 2. `ouput_path` The path where the json files should be saved.
-3. `metadata_path` The path to the metadata tab-delimited tsv file.
+3. `metadata_path` The path to the metadata tab-delimited file.
 
 Example of a metadata file: https://github.com/innawendell/European_Comedy/blob/master/French_Comedies/French_Comedies.tsv.
 
@@ -125,6 +125,24 @@ french_word_processor.py -i "French_Comedies/Word_Docs/" \
 -o "French_Comedies/Play_Jsons/" \
 -m "French_Comedies/French_Comedies.tsv"
 ```
+
+## french_word_processor.py
+This script processes summaries of the plays in any language manually entered in Word Documents.
+
+Examples of the Word Documents: https://github.com/innawendell/European_Comedy/tree/master/Contrastive_Material/Word_Docs.
+
+Three agruments are required to run this script:
+1. `input_path` The path where the Word Documents are stored.
+2. `ouput_path` The path where the json files should be saved.
+3. `metadata_path` The path to the metadata tab-delimited file.
+
+Metadata file has to follow this format: https://github.com/innawendell/European_Comedy/blob/master/Contrastive_Material/Contrastive_material.tsv.
+
+### Run this script:
+```
+french_word_processor.py -i "French_Comedies/Word_Docs/" \
+-o "French_Comedies/Play_Jsons/" \
+-m "French_Comedies/French_Comedies.tsv"
 
 ## Scripts
 All scripts in directory `scripts` are automatically installed into the path.
