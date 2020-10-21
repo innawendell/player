@@ -26,7 +26,7 @@ or install using pip from the github directory:
 
 ## txt_processor.py
 This script processes Russian (old or new orthography) txt files with a custom markup.
-
+For more details on the tags, https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
 Examples of text files: https://github.com/innawendell/European_Comedy/tree/master/Russian_Comedies/Txt_files
 
 Three arguments are required to run this script:
@@ -46,7 +46,7 @@ txt_processor.py -i "Russian_Comedies/Txt_files/" \
 
 ## russian_tei_processor.py
 This script processes xml (TEI) files in Russian obtained from https://dracor.org/. 
-The markup was adjusted to meet our research goals.
+The markup was adjusted to meet our research goals. For more details, see https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
 
 Examples of the Russian TEI files: https://github.com/innawendell/European_Comedy/tree/master/Russian_Comedies/TEI_files.
 
@@ -79,9 +79,9 @@ russian_tei_processor.py -i "Russian_Comedies/TEI_files/" \
 
 ## french_tei_processor.py
 This script processes xml (TEI) files in French obtained from http://www.theatre-classique.fr/. 
-The markup was adjusted to meet our research goals. 
+The markup was adjusted to meet our research goals. For more details, see https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
 
-Examples of the Russian TEI files: https://github.com/innawendell/European_Comedy/tree/master/French_Comedies/TEI_files.
+Examples of the French TEI files: https://github.com/innawendell/European_Comedy/tree/master/French_Comedies/TEI_files.
 
 Two agruments are required to run this script:
 1. `input_path` The path where the TEI files are stored.
@@ -125,6 +125,32 @@ french_word_processor.py -i "French_Comedies/Word_Docs/" \
 -o "French_Comedies/Play_Jsons/" \
 -m "French_Comedies/French_Comedies.tsv"
 ```
+
+## shakespeare_processor.py
+This script processes xml (TEI) files in English obtained from https://dracor.org/shake.
+The markup was adjusted to meet our research goals. For more details, see https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
+
+Two agruments are required to run this script:
+1. `input_path` The path where the TEI files are stored.
+2. `ouput_path` The path where the json files should be saved.
+
+Additionally, a user can specify two optional arguments:
+1. `custom_flag` boolean, `True` indicates that you will be using your custom metadata file. 
+	The default value is `False`, in which case the script uses metadata from the TEI file.
+
+### Run this script with default arguments:
+```
+shakespeare_processor.py -i 'Contrastive_Material/TEI_files/' \
+-o 'Contrastive_Material/Play_Jsons/' 
+```
+
+### Run this script with optional arguments:
+```
+shakespeare_processor.py -i 'Contrastive_Material/TEI_files/' \
+-o '/Contrastive_Material/Play_Jsons/' \
+-c True \
+-m 'Contrastive_Material/Contrastive_material.tsv'
+```	
 
 ## generic_word_processor.py
 This script processes summaries of the plays in any language manually entered in Word Documents.
