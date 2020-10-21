@@ -207,7 +207,7 @@ def count_utterances(scene, character_cast_dict, scene_status):
     # account for dramatic characters from a previous scene re-appearing in the new scene.
     utterance_lst = extract_utterances(character_cast_dict, scene)
     # run a quality check
-    tpf.check_cast_vs_speakers(scene_cast, utterance_lst, scene)
+    ftf.check_cast_vs_speakers(scene_cast, utterance_lst, scene)
     # count how many utterances each speaker makes
     scene_info = ftf.count_handler(scene_cast, utterance_lst)
         
@@ -245,7 +245,7 @@ def parse_scenes(scenes, character_cast_dictionary):
         scene_summary['num_speakers'], scene_summary['perc_non_speakers'] = ftf.count_characters(scene_summary)
         if float(sc_num) > 1:
             current_scene = [key for key in scene_summary.keys() if key not in other_meta_fields]
-            scene_status = ftf.check_if_no_change(current_scene, previous_cast, scene_status)           
+            scene_status = tpf.check_if_no_change(current_scene, previous_cast, scene_status)           
         complete_scene_info[str(sc_num) + '_' + str(scene_status)] =  scene_summary
         #check to make sure all character names are in scene cast as they appear in the play cast
         scene_names.append(str(sc_num) + '_' + str(scene_status))
