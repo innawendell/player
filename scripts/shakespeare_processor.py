@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 import argparse
-from player import speakespeare_tei_functions as stf
+from player import shakespeare_tei_functions as stf
 
 
 def main(raw_args):
