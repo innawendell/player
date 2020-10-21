@@ -5,6 +5,7 @@ import json
 from player import russian_tei_functions as rtf
 from player import text_processing_functions as tpf
 from player import french_tei_functions as ftf
+from player import russian_tei_functions as rtf
 
 
 def process_all_plays(input_directory, output_path, custom_flag=False, metadata_path=None):
@@ -184,7 +185,7 @@ def count_utterances(scene, character_cast_dict, scene_status):
     # run a quality check
     ftf.check_cast_vs_speakers(scene_cast, utterance_lst, scene)
     # count how many utterances each speaker makes
-    scene_info = ftf.count_handler(scene_cast, utterance_lst)
+    scene_info = rtf.count_handler(scene_cast, utterance_lst)
         
     return scene_info
 
