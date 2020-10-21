@@ -185,7 +185,7 @@ def count_utterances(scene, character_cast_dict, scene_status):
     # run a quality check
     ftf.check_cast_vs_speakers(scene_cast, utterance_lst, scene)
     # count how many utterances each speaker makes
-    scene_info = rtf.count_handler(scene_cast, utterance_lst)
+    scene_info = ftf.count_handler(scene_cast, utterance_lst)
         
     return scene_info
 
@@ -210,7 +210,7 @@ def parse_scenes(scenes, character_cast_dictionary):
     sc_num = 0
     extra_scene_number = 1
     for scene in scenes:
-        scene_status, sc_num, extra_scene_number = ftf.handle_scene_name_and_count(scene, sc_num, extra_scene_number)
+        scene_status, sc_num, extra_scene_number = rtf.handle_scene_name_and_count(scene, sc_num, extra_scene_number)
         if sc_num != 1 :
             previous_cast = [name for name in complete_scene_info[scene_names[-1]].keys()
                             if name not in other_meta_fields]
