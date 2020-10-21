@@ -162,3 +162,69 @@ def extract_utterances(character_cast_dict, scene):
     utterance_lst = [reverse_dict[name.replace('#', '')] for name in find_speakers(scene)]
     
     return utterance_lst
+
+
+def count_utterances(scene, character_cast_dict, scene_status):
+    """
+    The function counts the number of utterances each dramatic character makes in a given scene.
+    Params:
+        scene - a beautiful soup object of the scene xml.
+        character_cast_dict - a dictionary where keys are dramatic characters and values are their alterantive names
+                              and collective numbers.
+        characters_current_scene - a list of dramatic characters that are listed for the scene.
+        excluded_characters - a list of characters who are listed as exluded.
+        scene_status - scene_status - whether a scene is regular or extra.
+    Returns:
+        scene_ino - a dictionary where keys are charcters and values are the number of utterances.
+    """
+    scene_info = {}
+    scene_cast = ftf.identify_scene_cast(scene, scene_status)
+    # account for dramatic characters from a previous scene re-appearing in the new scene.
+    utterance_lst = extract_utterances(character_cast_dict, scene)
+    # run a quality check
+    ftf.check_cast_vs_speakers(scene_cast, utterance_lst, scene)
+    # count how many utterances each speaker makes
+    scene_info = ftf.count_handler(scene_cast, utterance_lst)
+        
+    return scene_info
+
+
+
+def parse_scenes(scenes, character_cast_dictionary):
+    """
+    The function goes through a list of scenes and updates complete_scene_info dictionary with informtion
+    about each scene speaking characters, their utterance counts, and percentage of non-speaking characters.
+    Params:
+        scenes - a list scenes.
+        name_pattern - regex expression for identifying character names.
+        character_cast_dictionary, reverse_character_cast - dictionaries for lookup of alternative names 
+                                                            for each dramatic character.
+    Returns:
+        complete_scene_info - a dictionary where keys are scenes and values are dramatic characters and their 
+                             utternace counts as well as the number of speakers and percentage of non-speakers.
+    """
+    other_meta_fields = ['num_speakers', 'perc_non_speakers', 'num_utterances']
+    complete_scene_info = {} 
+    scene_names = []
+    sc_num = 0
+    extra_scene_number = 1
+    for scene in scenes:
+        scene_status, sc_num, extra_scene_number = ftf.handle_scene_name_and_count(scene, sc_num, extra_scene_number)
+        if sc_num != 1 :
+            previous_cast = [name for name in complete_scene_info[scene_names[-1]].keys()
+                            if name not in other_meta_fields]
+        else:
+            previous_cast = []
+        scene_summary = count_utterances(scene, character_cast_dictionary, scene_status)
+        scene_summary['num_utterances'] = sum(list(scene_summary.values()))
+        scene_summary['num_speakers'], scene_summary['perc_non_speakers'] = count_characters(scene_summary)
+        if float(sc_num) > 1:
+            current_scene = [key for key in scene_summary.keys() if key not in other_meta_fields]
+            scene_status = ftf.check_if_no_change(current_scene, previous_cast, scene_status)           
+        complete_scene_info[str(sc_num) + '_' + str(scene_status)] =  scene_summary
+        #check to make sure all character names are in scene cast as they appear in the play cast
+        scene_names.append(str(sc_num) + '_' + str(scene_status))
+
+    return complete_scene_info
+
+
