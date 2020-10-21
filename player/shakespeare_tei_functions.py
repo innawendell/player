@@ -29,6 +29,27 @@ def process_all_plays(input_directory, output_path, custom_flag=False, metadata_
             json.dump(play_data_dict, fp, ensure_ascii=False, indent=2)
 
 
+def add_play_info(soup, metadata, custom_flag=False):
+    """
+    Update play metadata from the metadata_df. We can provide our own metadata or use the TEI metadataa
+    """
+    play_data = {}
+    if custom_flag:
+        play_data['title'] = metadata[0][0]
+        first_name = metadata[0][2]
+        if type(first_name) != float:
+            play_data['author'] = str(metadata[0][1] + ', ' + first_name).strip()
+        else:
+            play_data['author'] = metadata[0][1].strip()
+        play_data['creation_date'] = metadata[0][3]
+    else:
+        play_data['title'] = soup.find('title').get_text()
+        play_data['author'] = soup.find('author').get_text()
+        play_data['creation_date'] = int(soup.find('date', {'type': 'written'})['when'])
+        
+    return play_data
+
+
 def process_play(file_name, metadata_df, custom_flag):
     """
     The function parses a txt file and creates a summary with features and metadata for the play.
