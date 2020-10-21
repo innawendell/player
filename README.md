@@ -26,6 +26,7 @@ or install using pip from the github directory:
 
 ## txt_processor.py
 This script processes Russian (old or new orthography) txt files with a custom markup.
+
 For more details on the tags, https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
 Examples of text files: https://github.com/innawendell/European_Comedy/tree/master/Russian_Comedies/Txt_files
 
@@ -46,7 +47,8 @@ txt_processor.py -i "Russian_Comedies/Txt_files/" \
 
 ## russian_tei_processor.py
 This script processes xml (TEI) files in Russian obtained from https://dracor.org/. 
-The markup was adjusted to meet our research goals. For more details, see https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
+The markup was adjusted to meet our research goals. 
+For more details, see https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
 
 Examples of the Russian TEI files: https://github.com/innawendell/European_Comedy/tree/master/Russian_Comedies/TEI_files.
 
@@ -57,12 +59,12 @@ Two agruments are required to run this script:
 Additionally, a user can specify two optional arguments:
 1. `custom_flag` Boolean, where `True` indicates that a user will be suppplying a custom metadata file. 
 	Default value is `False`, in which case the script uses metadata from the TEI file.
-
-	Example of such metadatafile: https://github.com/innawendell/European_Comedy/blob/master/Russian_Comedies/Russian_Comedies.tsv
 2. `metadata_path` The path to the metadata tab-delimited tsv file.
 
+Example of a metadatafile: https://github.com/innawendell/European_Comedy/blob/master/Russian_Comedies/Russian_Comedies.tsv.
+
 Note: if the corpus includes plays written in free iambs, you will need to provide a metadata file, since this information
-is not recorded in TEI.
+is not recorded in the TEI.
 
 ### Run this script with default arguments:
 ```
@@ -79,7 +81,8 @@ russian_tei_processor.py -i "Russian_Comedies/TEI_files/" \
 
 ## french_tei_processor.py
 This script processes xml (TEI) files in French obtained from http://www.theatre-classique.fr/. 
-The markup was adjusted to meet our research goals. For more details, see https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
+The markup was adjusted to meet our research goals. 
+For more details, see https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
 
 Examples of the French TEI files: https://github.com/innawendell/European_Comedy/tree/master/French_Comedies/TEI_files.
 
@@ -90,9 +93,9 @@ Two agruments are required to run this script:
 Additionally, a user can specify two optional arguments:
 1. `custom_flag` boolean, `True` indicates that you will be using your custom metadata file. 
 	The default value is `False`, in which case the script uses metadata from the TEI file.
-
-	Example of such metadatafile: https://github.com/innawendell/European_Comedy/blob/master/French_Comedies/French_Comedies.tsv.
 2. `metadata_path` The path to the metadata tab-delimited file.
+
+Example of a metadatafile: https://github.com/innawendell/European_Comedy/blob/master/French_Comedies/French_Comedies.tsv.
 
 ### Run this script with default arguments:
 ```
@@ -128,7 +131,8 @@ french_word_processor.py -i "French_Comedies/Word_Docs/" \
 
 ## shakespeare_processor.py
 This script processes xml (TEI) files in English obtained from https://dracor.org/shake.
-The markup was adjusted to meet our research goals. For more details, see https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
+The markup was adjusted to meet our research goals. 
+For more details, see https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
 
 Examples of Shakespeare's TEI files:
 https://github.com/innawendell/European_Comedy/blob/master/Contrastive_Material/TEI_files.
