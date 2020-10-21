@@ -138,17 +138,17 @@ def process_speakers_features(soup, play_data, metadata_dict):
     Iarkho's features described in Iarkho's work on the evolution of 5-act tragedy in verse.
     """
     metadata_dict['num_present_characters'] = number_present_characters(play_data)
-    metadata_dict['num_scenes_text'] = rtf.estimate_number_scenes(play_data['play_summary'])[0]
-    metadata_dict['num_scenes_iarkho'] = rtf.estimate_number_scenes(play_data['play_summary'])[1]
+    metadata_dict['num_scenes_text'] = tpf.estimate_number_scenes(play_data['play_summary'])[0]
+    metadata_dict['num_scenes_iarkho'] = tpf.estimate_number_scenes(play_data['play_summary'])[1]
     play_summary_copy = copy.deepcopy(play_data['play_summary'])
-    distribution, speech_types, non_speakers = rtf.speech_distribution_iarkho(play_summary_copy)
+    distribution, speech_types, non_speakers = tpf.speech_distribution_iarkho(play_summary_copy)
     metadata_dict['speech_distribution'] = distribution
     metadata_dict['percentage_monologues'] = speech_types['perc_monologue']
     metadata_dict['percentage_duologues'] = speech_types['perc_duologue']
     metadata_dict['percentage_non_duologues'] = speech_types['perc_non_duologue']
     metadata_dict['percentage_above_two_speakers'] = speech_types['perc_over_two_speakers']
     metadata_dict['av_percentage_non_speakers'] = non_speakers
-    metadata_dict['sigma_iarkho'] = round(rtf.sigma_iarkho(
+    metadata_dict['sigma_iarkho'] = round(tpf.sigma_iarkho(
                                     [item[0] for item in metadata_dict['speech_distribution']],
                                     [item[1] for item in metadata_dict['speech_distribution']]), 3)
     
