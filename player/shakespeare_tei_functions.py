@@ -2,6 +2,7 @@ import pandas as pd
 from os import listdir
 from bs4 import BeautifulSoup as bs
 import json
+import copy
 from player import russian_tei_functions as rtf
 from player import text_processing_functions as tpf
 from player import french_tei_functions as ftf
