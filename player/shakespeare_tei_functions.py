@@ -104,7 +104,7 @@ def process_summary(soup, character_cast_dictionary):
     acts = soup.find_all('div', {'type': 'act'})
     for act_num, act in enumerate(acts, 1):
         scenes = act.find_all('div', {'type': ['scene', 'extra_scene']})
-        act_info['act'+'_'+str(act_num)] = ftf.parse_scenes(scenes, 
+        act_info['act'+'_'+str(act_num)] = parse_scenes(scenes, 
                                                         character_cast_dictionary)
     return act_info
 
