@@ -140,16 +140,16 @@ Additionally, a user can specify two optional arguments:
 
 ### Run this script with default arguments:
 ```
-shakespeare_processor.py -i 'Contrastive_Material/TEI_files/' \
--o 'Contrastive_Material/Play_Jsons/' 
+shakespeare_processor.py -i "Contrastive_Material/TEI_files/"" \
+-o "Contrastive_Material/Play_Jsons/"" 
 ```
 
 ### Run this script with optional arguments:
 ```
-shakespeare_processor.py -i 'Contrastive_Material/TEI_files/' \
--o '/Contrastive_Material/Play_Jsons/' \
+shakespeare_processor.py -i "Contrastive_Material/TEI_files/"" \
+-o "/Contrastive_Material/Play_Jsons/" \
 -c True \
--m 'Contrastive_Material/Contrastive_material.tsv'
+-m "Contrastive_Material/Contrastive_material.tsv"
 ```	
 
 ## generic_word_processor.py
