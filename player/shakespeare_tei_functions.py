@@ -118,7 +118,7 @@ def additional_metadata(play_soup, play_data):
     metadata_dict = {}
     for process in [process_speakers_features, 
                     percentage_of_scenes_discont_change]:
-        metadata_dict = process(play_soup, play_data, metadata_dict)
+        metadata_dict = ftf.process(play_soup, play_data, metadata_dict)
 
     return metadata_dict
 
