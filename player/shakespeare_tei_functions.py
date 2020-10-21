@@ -110,13 +110,57 @@ def process_summary(soup, character_cast_dictionary):
                                                         character_cast_dictionary)
     return act_info
 
+def number_present_characters(play_dictionary):
+    """
+    The function calculates the number of characters present in the play. If a character is listed in cast, but doesn't
+    appear on stage, he/she doesn't count.
+    Params:
+        play_dictionary - a dictioanry with data for the play, which includes the characters present in each scene.
+    Returns:
+        total_number_present_characters - int.
+    """
+    all_present_characters = set()
+    for key in play_dictionary['play_summary'].keys():
+        for scene in play_dictionary['play_summary'][key]:
+            for item in play_dictionary['play_summary'][key][scene].keys():
+                if item != 'num_utterances' and item != 'num_speakers' and item != 'perc_non_speakers':
+                    all_present_characters.add(item)
+    total_number_present_characters = 0
+    appearing_on_stage = set(play_dictionary['characters']).intersection(all_present_characters)
+    for character in appearing_on_stage: 
+        total_number_present_characters += 1
+  
+    return total_number_present_characters
+
+
+def process_speakers_features(soup, play_data, metadata_dict):
+    """
+    Iarkho's features described in Iarkho's work on the evolution of 5-act tragedy in verse.
+    """
+    metadata_dict['num_present_characters'] = number_present_characters(play_data)
+    metadata_dict['num_scenes_text'] = rtf.estimate_number_scenes(play_data['play_summary'])[0]
+    metadata_dict['num_scenes_iarkho'] = rtf.estimate_number_scenes(play_data['play_summary'])[1]
+    play_summary_copy = copy.deepcopy(play_data['play_summary'])
+    distribution, speech_types, non_speakers = rtf.speech_distribution_iarkho(play_summary_copy)
+    metadata_dict['speech_distribution'] = distribution
+    metadata_dict['percentage_monologues'] = speech_types['perc_monologue']
+    metadata_dict['percentage_duologues'] = speech_types['perc_duologue']
+    metadata_dict['percentage_non_duologues'] = speech_types['perc_non_duologue']
+    metadata_dict['percentage_above_two_speakers'] = speech_types['perc_over_two_speakers']
+    metadata_dict['av_percentage_non_speakers'] = non_speakers
+    metadata_dict['sigma_iarkho'] = round(rtf.sigma_iarkho(
+                                    [item[0] for item in metadata_dict['speech_distribution']],
+                                    [item[1] for item in metadata_dict['speech_distribution']]), 3)
+    
+    return metadata_dict
+
 
 def additional_metadata(play_soup, play_data):
     """
     Process all play features.
     """
     metadata_dict = {}
-    for process in [rtf.process_speakers_features, 
+    for process in [process_speakers_features, 
                     rtf.percentage_of_scenes_discont_change]:
         metadata_dict = process(play_soup, play_data, metadata_dict)
 
