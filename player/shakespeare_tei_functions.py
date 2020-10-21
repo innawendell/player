@@ -6,8 +6,6 @@ import copy
 from player import russian_tei_functions as rtf
 from player import text_processing_functions as tpf
 from player import french_tei_functions as ftf
-from player import russian_tei_functions as rtf
-from player import text_processing_functions as tpf
 
 
 def process_all_plays(input_directory, output_path, custom_flag=False, metadata_path=None):
@@ -49,7 +47,7 @@ def add_play_info(soup, metadata, custom_flag=False):
         play_data['title'] = soup.find('title').get_text()
         play_data['author'] = soup.find('author').get_text()
         play_data['creation_date'] = int(soup.find('date', {'type': 'written'})['when'])
-        
+
     return play_data
 
 
@@ -82,10 +80,9 @@ def process_play(file_name, metadata_df, custom_flag):
     return play_data
 
 
-
 def create_character_cast(play_soup):
     """
-    The function creates a dictionary where the keys are dramatic characters and values are their alternative names 
+    The function creates a dictionary where the keys are dramatic characters and values are their alternative names
     and collective_numbers if applicable.
     Params:
         play_soup - play xml turned into beautiful soup object.
@@ -95,21 +92,21 @@ def create_character_cast(play_soup):
     character_dict = {}
     dramatic_characters = play_soup.find_all('person') + play_soup.find_all('persongrp')
     for character_tag in dramatic_characters:
-        character_dict[character_tag['xml:id'].split('_')[0]] =  {"alternative_names": 
-                                                                  character_tag['xml:id']}
+        character_dict[character_tag['xml:id'].split('_')[0]] = {"alternative_names":
+                                                                 character_tag['xml:id']}
 
-                                                                                 
     return character_dict
 
 
-def process_summary(soup, character_cast_dictionary):  
+def process_summary(soup, character_cast_dictionary):
     act_info = {}
     acts = soup.find_all('div', {'type': 'act'})
     for act_num, act in enumerate(acts, 1):
         scenes = act.find_all('div', {'type': ['scene', 'extra_scene']})
-        act_info['act'+'_'+str(act_num)] = parse_scenes(scenes, 
+        act_info['act'+'_'+str(act_num)] = parse_scenes(scenes,
                                                         character_cast_dictionary)
     return act_info
+
 
 def number_present_characters(play_dictionary):
     """
@@ -128,9 +125,9 @@ def number_present_characters(play_dictionary):
                     all_present_characters.add(item)
     total_number_present_characters = 0
     appearing_on_stage = set(play_dictionary['characters']).intersection(all_present_characters)
-    for character in appearing_on_stage: 
+    for character in appearing_on_stage:
         total_number_present_characters += 1
-  
+
     return total_number_present_characters
 
 
@@ -152,7 +149,7 @@ def process_speakers_features(soup, play_data, metadata_dict):
     metadata_dict['sigma_iarkho'] = round(tpf.sigma_iarkho(
                                     [item[0] for item in metadata_dict['speech_distribution']],
                                     [item[1] for item in metadata_dict['speech_distribution']]), 3)
-    
+
     return metadata_dict
 
 
@@ -161,7 +158,7 @@ def additional_metadata(play_soup, play_data):
     Process all play features.
     """
     metadata_dict = {}
-    for process in [process_speakers_features, 
+    for process in [process_speakers_features,
                     rtf.percentage_of_scenes_discont_change]:
         metadata_dict = process(play_soup, play_data, metadata_dict)
 
@@ -170,7 +167,7 @@ def additional_metadata(play_soup, play_data):
 
 def find_speakers(scene):
     """
-    The function creates a list of the speakers in a scene in the order of their utterances. 
+    The function creates a list of the speakers in a scene in the order of their utterances.
     The number of times a speaker appears in the list corresponds to the number of utterances the speaker makes.
     Params:
         scene - a beautiful soup object of the scene xml.
@@ -187,7 +184,7 @@ def find_speakers(scene):
             [speakers_lst.append(sp.strip()) for sp in multiple_speakers]
         else:
             speakers_lst.append(speaker)
-   
+
     return speakers_lst
 
 
@@ -207,13 +204,13 @@ def extract_utterances(character_cast_dict, scene):
                             character_cast_dict.keys()))
 
     utterance_lst = [reverse_dict[name.replace('#', '')] for name in find_speakers(scene)]
-    
+
     return utterance_lst
 
 
 def identify_scene_cast(scene, scene_status):
     """
-    The function parses the scene xml and identifes the string that contains the dramatic characters' who are present 
+    The function parses the scene xml and identifes the string that contains the dramatic characters' who are present
     in the scene.
     Params:
         scene - a beautiful soup object of the scene xml.
@@ -223,14 +220,13 @@ def identify_scene_cast(scene, scene_status):
         scene_cast - a string that contains the dramaric characters present in the scene.
 
     """
-    if scene_status.count('extra') != 0 :
+    if scene_status.count('extra') != 0:
         scene_cast = str(scene['cast'])
     else:
         scene_cast = str(scene.find_all('stage')[0]['who'])
-        
-    #remove noise from names
+    # remove noise from names
     scene_cast = [name.split('_')[0] for name in scene_cast.replace('#', '').split(' ')]
-    
+
     return scene_cast
 
 
@@ -255,9 +251,8 @@ def count_utterances(scene, character_cast_dict, scene_status):
     ftf.check_cast_vs_speakers(scene_cast, utterance_lst, scene)
     # count how many utterances each speaker makes
     scene_info = ftf.count_handler(scene_cast, utterance_lst)
-        
-    return scene_info
 
+    return scene_info
 
 
 def parse_scenes(scenes, character_cast_dictionary):
@@ -267,22 +262,22 @@ def parse_scenes(scenes, character_cast_dictionary):
     Params:
         scenes - a list scenes.
         name_pattern - regex expression for identifying character names.
-        character_cast_dictionary, reverse_character_cast - dictionaries for lookup of alternative names 
-                                                            for each dramatic character.
+        character_cast_dictionary, reverse_character_cast - dictionaries for lookup of alternative names
+        for each dramatic character.
     Returns:
-        complete_scene_info - a dictionary where keys are scenes and values are dramatic characters and their 
+        complete_scene_info - a dictionary where keys are scenes and values are dramatic characters and their
                              utternace counts as well as the number of speakers and percentage of non-speakers.
     """
     other_meta_fields = ['num_speakers', 'perc_non_speakers', 'num_utterances']
-    complete_scene_info = {} 
+    complete_scene_info = {}
     scene_names = []
     sc_num = 0
     extra_scene_number = 1
     for scene in scenes:
         scene_status, sc_num, extra_scene_number = rtf.handle_scene_name_and_count(scene, sc_num, extra_scene_number)
-        if sc_num != 1 :
+        if sc_num != 1:
             previous_cast = [name for name in complete_scene_info[scene_names[-1]].keys()
-                            if name not in other_meta_fields]
+                             if name not in other_meta_fields]
         else:
             previous_cast = []
         scene_summary = count_utterances(scene, character_cast_dictionary, scene_status)
@@ -290,11 +285,9 @@ def parse_scenes(scenes, character_cast_dictionary):
         scene_summary['num_speakers'], scene_summary['perc_non_speakers'] = ftf.count_characters(scene_summary)
         if float(sc_num) > 1:
             current_scene = [key for key in scene_summary.keys() if key not in other_meta_fields]
-            scene_status = tpf.check_if_no_change(current_scene, previous_cast, scene_status)           
-        complete_scene_info[str(sc_num) + '_' + str(scene_status)] =  scene_summary
-        #check to make sure all character names are in scene cast as they appear in the play cast
+            scene_status = tpf.check_if_no_change(current_scene, previous_cast, scene_status)
+        complete_scene_info[str(sc_num) + '_' + str(scene_status)] = scene_summary
+        # check to make sure all character names are in scene cast as they appear in the play cast
         scene_names.append(str(sc_num) + '_' + str(scene_status))
 
     return complete_scene_info
-
-
