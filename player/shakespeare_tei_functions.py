@@ -165,6 +165,29 @@ def extract_utterances(character_cast_dict, scene):
     return utterance_lst
 
 
+def identify_scene_cast(scene, scene_status):
+    """
+    The function parses the scene xml and identifes the string that contains the dramatic characters' who are present 
+    in the scene.
+    Params:
+        scene - a beautiful soup object of the scene xml.
+        scene_status - if a scene_status is "extra" the character cast would be given in the markup,
+                        e.g., cast="#King_LLL #Berowne_LLL,."
+    Returns:
+        scene_cast - a string that contains the dramaric characters present in the scene.
+
+    """
+    if scene_status.count('extra') != 0 :
+        scene_cast = str(scene['cast'])
+    else:
+        scene_cast = str(scene.find_all('stage')[0]['who'])
+        
+    #remove noise from names
+    scene_cast = [name.split('_')[0] for name in scene_cast.replace('#', '').split(' ')]
+    
+    return scene_cast
+
+
 def count_utterances(scene, character_cast_dict, scene_status):
     """
     The function counts the number of utterances each dramatic character makes in a given scene.
@@ -179,7 +202,7 @@ def count_utterances(scene, character_cast_dict, scene_status):
         scene_ino - a dictionary where keys are charcters and values are the number of utterances.
     """
     scene_info = {}
-    scene_cast = ftf.identify_scene_cast(scene, scene_status)
+    scene_cast = identify_scene_cast(scene, scene_status)
     # account for dramatic characters from a previous scene re-appearing in the new scene.
     utterance_lst = extract_utterances(character_cast_dict, scene)
     # run a quality check
