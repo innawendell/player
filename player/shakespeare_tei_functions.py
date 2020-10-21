@@ -241,7 +241,7 @@ def parse_scenes(scenes, character_cast_dictionary):
             previous_cast = []
         scene_summary = count_utterances(scene, character_cast_dictionary, scene_status)
         scene_summary['num_utterances'] = sum(list(scene_summary.values()))
-        scene_summary['num_speakers'], scene_summary['perc_non_speakers'] = count_characters(scene_summary)
+        scene_summary['num_speakers'], scene_summary['perc_non_speakers'] = ftf.count_characters(scene_summary)
         if float(sc_num) > 1:
             current_scene = [key for key in scene_summary.keys() if key not in other_meta_fields]
             scene_status = ftf.check_if_no_change(current_scene, previous_cast, scene_status)           
