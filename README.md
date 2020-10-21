@@ -156,7 +156,7 @@ shakespeare_processor.py -i "Contrastive_Material/TEI_files/"" \
 ### Run this script with optional arguments:
 ```
 shakespeare_processor.py -i "Contrastive_Material/TEI_files/" \
--o "/Contrastive_Material/Play_Jsons/" \
+-o "Contrastive_Material/Play_Jsons/" \
 -c True \
 -m "Contrastive_Material/Contrastive_material.tsv"
 ```	
