@@ -26,7 +26,7 @@ or install using pip from the github directory:
 
 ## txt_processor.py
 This script processes Russian (old or new orthography) txt files with a custom markup.
-* For more details on the tags, https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
+* For more details on the tags: https://github.com/innawendell/European_Comedy/blob/master/TAGS_EXPLANATION.md.
 * Examples of text files: https://github.com/innawendell/European_Comedy/tree/master/Russian_Comedies/Txt_files
 
 Three arguments are required to run this script:
