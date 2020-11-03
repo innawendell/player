@@ -1,4 +1,4 @@
-fviimport pandas as pd
+import pandas as pd
 from os import listdir
 import string
 from bs4 import BeautifulSoup as bs
