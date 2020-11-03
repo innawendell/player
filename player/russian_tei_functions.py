@@ -1,4 +1,4 @@
-import pandas as pd
+fviimport pandas as pd
 from os import listdir
 import string
 from bs4 import BeautifulSoup as bs
@@ -459,12 +459,11 @@ def process_features_verse(play_soup, play_data, metadata_dict):
     """
     metadata_dict['total_utterances'] = total_utterances(play_soup)
     metadata_dict['num_verse_lines'] = count_all_verse_lines(play_soup)
-    if "free_iambs" in play_data:
-        if play_data['free_iambs'] == 1:
-            metadata_dict['rescaled_num_verse_lines'] = round(metadata_dict['num_verse_lines'] * .796, 3)
-            metadata_dict['dialogue_vivacity'] = round(
-                                             metadata_dict['total_utterances'] /
-                                             metadata_dict['rescaled_num_verse_lines'], 3)
+   if "free_iambs" in play_data and play_data['free_iambs'] == 1:
+        metadata_dict['rescaled_num_verse_lines'] = round(metadata_dict['num_verse_lines'] * .796, 3)
+        metadata_dict['dialogue_vivacity'] = round(
+                                         metadata_dict['total_utterances'] /
+                                         metadata_dict['rescaled_num_verse_lines'], 3)
     else:
         metadata_dict['dialogue_vivacity'] = round(
                                              metadata_dict['total_utterances'] /
